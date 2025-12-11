@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>التحقق الخارجي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { font-family: 'Tajawal', sans-serif; background: #f5f7fb; padding: 40px; }
+        .card { max-width: 400px; margin: auto; background: #fff; padding: 30px; border-radius: 20px; text-align: center; }
+        
+        input { width: 80%; padding: 12px; margin: 15px 0; border: 1px solid #ddd; border-radius: 8px; text-align: center; font-family: inherit; font-size: 16px; }
+        .btn-check { width: 100%; padding: 12px; background: #008069; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; font-family: inherit; }
+        
+        .stage { display: none; margin-top: 20px; }
+        .icon-big { font-size: 50px; color: #008069; margin-bottom: 15px; }
+        
+        /* Face ID Animation */
+        .face-scan-box {
+            width: 100px; height: 100px; margin: 0 auto;
+            border: 2px solid #008069; border-radius: 15px;
+            position: relative; overflow: hidden;
+        }
+        .scan-line {
+            width: 100%; height: 2px; background: red;
+            position: absolute; top: 0;
+            animation: scanning 1.5s infinite alternate;
+        }
+        @keyframes scanning { from {top:0;} to {top:100%;} }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <a href="journeys.html" style="text-decoration:none; color:#999; float:left">x</a>
+    <h2>بوابة الجهات الخارجية</h2>
+    <p style="font-size:14px; color:#666">تأجير سيارات / فنادق</p>
+
+    <div id="stage-1">
+        <input type="text" id="phone" placeholder="رقم جوال العميل (0500000000)">
+        <button class="btn-check" onclick="startCheck()">طلب تحقق</button>
+    </div>
+
+    <div id="stage-2" class="stage">
+        <i class="fa-solid fa-comment-sms icon-big"></i>
+        <h3>تم إرسال الرابط للعميل</h3>
+        <p>بانتظار الموافقة...</p>
+        <button class="btn-check" style="background:#ea580c" onclick="simulateUserAction()">📱 (محاكاة) العميل ضغط الرابط</button>
+    </div>
+
+    <div id="stage-3" class="stage">
+        <h3>جاري التحقق الحيوي...</h3>
+        <div class="face-scan-box">
+            <i class="fa-solid fa-face-smile" style="font-size:60px; line-height:100px; color:#ddd"></i>
+            <div class="scan-line"></div>
+        </div>
+        <p>Face ID Check</p>
+    </div>
+
+    <div id="stage-4" class="stage">
+        <div id="final-result"></div>
+    </div>
+</div>
+
+<script>
+    function startCheck() {
+        const ph = document.getElementById("phone").value;
+        if (!ph) return alert("أدخل الرقم أولاً");
+        
+        // نخفي 1 ونظهر 2
+        document.getElementById("stage-1").style.display = "none";
+        document.getElementById("stage-2").style.display = "block";
+    }
+
+    function simulateUserAction() {
+        // نخفي 2 ونظهر 3 (Face ID)
+        document.getElementById("stage-2").style.display = "none";
+        document.getElementById("stage-3").style.display = "block";
+
+        // بعد 3 ثواني، نكلم السيرفر
+        setTimeout(verifyWithServer, 3000);
+    }
+
+    async function verifyWithServer() {
+        const ph = document.getElementById("phone").value;
+        try {
+            const res = await fetch("http://127.0.0.1:5000/api/external_verify", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ phone: ph })
+            });
+            const data = await res.json();
+
+            // نظهر النتيجة
+            document.getElementById("stage-3").style.display = "none";
+            document.getElementById("stage-4").style.display = "block";
+
+            const resultDiv = document.getElementById("final-result");
+            if (data.status === "success") {
+                resultDiv.innerHTML = `
+                    <i class="fa-solid fa-circle-check" style="color:green; font-size:50px;"></i>
+                    <h3>تم التحقق بنجاح!</h3>
+                    <p>البيانات مطابقة للسجل المدني</p>
+                `;
+            } else {
+                resultDiv.innerHTML = `
+                    <i class="fa-solid fa-circle-xmark" style="color:red; font-size:50px;"></i>
+                    <h3>فشل التحقق</h3>
+                    <p>الرقم غير مطابق</p>
+                `;
+            }
+
+        } catch (e) {
+            alert("خطأ: تأكد من تشغيل السيرفر");
+        }
+    }
+</script>
+
+</body>
+</html>

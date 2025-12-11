@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <title>الرئيسية - أبشر</title>
+    <style>
+        body {
+            font-family: system-ui;
+            background: linear-gradient(135deg, #e0f5f2, #f4f6f9);
+            margin: 0; padding: 0;
+            display: flex; flex-direction: column; min-height: 100vh;
+        }
+        .nav {
+            background: #ffffff; padding: 16px 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .nav-logos { display: flex; gap: 8px; }
+        .nav-logo { height: 32px; }
+        .project-name { font-size: 14px; color: #008069; font-weight: 600; margin-right: 10px;}
+        .grid {
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
+            padding: 24px; max-width: 600px; margin: 32px auto; flex-grow: 1;
+        }
+        .card {
+            background: #ffffff; padding: 20px; border-radius: 16px;
+            text-align: center; border: 1px solid #e0e0e0; cursor: pointer;
+            transition: 0.2s;
+        }
+        .card:hover { background: #e8f5f1; transform: translateY(-2px); }
+        .journey-card {
+            background: #008069; color: white; border: none; font-weight: bold;
+        }
+        .journey-card:hover { background: #006c59; }
+        .footer {
+            text-align: center; padding: 20px;
+        }
+        .footer-logo { height: 40px; }
+    </style>
+</head>
+<body>
+
+<div class="nav">
+    <div style="display:flex; align-items:center">
+        <div class="nav-logos">
+            <img src="image/moi.png" alt="MOI" class="nav-logo">
+            <img src="image/absher.png" alt="Absher" class="nav-logo">
+        </div>
+        <span class="project-name">| Vision Pioneers</span>
+    </div>
+    <div style="font-weight:700">خدمات الأفراد</div>
+</div>
+
+<div class="grid">
+    <div class="card">المركبات</div>
+    <div class="card">خدماتي</div>
+    <div class="card">العمالة</div>
+    <div class="card">أفراد الأسرة</div>
+    
+    <div class="card journey-card" onclick="window.location.href='journeys.html'">
+        🧭 الرحلات الذكية
+    </div>
+    
+    <div class="card">مواعيد</div>
+</div>
+
+<div class="footer">
+    <img src="image/tuwaiq.png" alt="Tuwaiq" class="footer-logo">
+</div>
+
+</body>
+</html>
