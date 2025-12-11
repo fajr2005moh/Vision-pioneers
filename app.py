@@ -14,7 +14,7 @@ digital_wallet = {
     
     # تفاصيل المولود (السيناريو الجديد)
     "birth_notification": {
-        "ref_number": "REF-2025-99",
+        "ref_number": "",
         "birth_date": "2025-09-01", # تاريخ الولادة (سبتمبر)
         "gender": "ذكر",
         "mother_id": "1020304050",
