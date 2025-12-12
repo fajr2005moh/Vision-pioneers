@@ -206,7 +206,7 @@
     async function showCenter() {
         const res = await fetch("http://127.0.0.1:5000/api/nearest_center");
         const data = await res.json();
-        document.getElementById("center-info").innerText = ✅ تم التحديد: ${data.center.name}`;
+        document.getElementById("center-info").innerText = `✅ تم التحديد: ${data.center.name}`;
     }
 </script>
 

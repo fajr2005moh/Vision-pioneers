@@ -27,12 +27,19 @@
             animation: scanning 1.5s infinite alternate;
         }
         @keyframes scanning { from {top:0;} to {top:100%;} }
+        
+        /* زر الإغلاق X */
+        .close-btn {
+            text-decoration: none; color: #999; float: left; font-size: 18px; font-weight: bold;
+        }
+        .close-btn:hover { color: red; }
     </style>
 </head>
 <body>
 
 <div class="card">
-    <a href="journeys.html" style="text-decoration:none; color:#999; float:left">x</a>
+    <a href="index.html" class="close-btn">✕</a>
+    
     <h2>بوابة الجهات الخارجية</h2>
     <p style="font-size:14px; color:#666">تأجير سيارات / فنادق</p>
 
@@ -67,17 +74,14 @@
         const ph = document.getElementById("phone").value;
         if (!ph) return alert("أدخل الرقم أولاً");
         
-        // نخفي 1 ونظهر 2
         document.getElementById("stage-1").style.display = "none";
         document.getElementById("stage-2").style.display = "block";
     }
 
     function simulateUserAction() {
-        // نخفي 2 ونظهر 3 (Face ID)
         document.getElementById("stage-2").style.display = "none";
         document.getElementById("stage-3").style.display = "block";
 
-        // بعد 3 ثواني، نكلم السيرفر
         setTimeout(verifyWithServer, 3000);
     }
 
@@ -91,7 +95,6 @@
             });
             const data = await res.json();
 
-            // نظهر النتيجة
             document.getElementById("stage-3").style.display = "none";
             document.getElementById("stage-4").style.display = "block";
 

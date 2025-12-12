@@ -25,13 +25,21 @@
         .card {
             background: #ffffff; padding: 20px; border-radius: 16px;
             text-align: center; border: 1px solid #e0e0e0; cursor: pointer;
-            transition: 0.2s;
+            transition: 0.2s; display: flex; align-items: center; justify-content: center; font-weight: bold;
         }
         .card:hover { background: #e8f5f1; transform: translateY(-2px); }
+        
+        /* كرت الرحلات (المميز) */
         .journey-card {
-            background: #008069; color: white; border: none; font-weight: bold;
+            background: #008069; color: white; border: none; font-size: 18px;
         }
         .journey-card:hover { background: #006c59; }
+
+    
+        .verify-card {
+            border: 2px dashed #008069; color: #008069; background: #f0fdf4;
+        }
+
         .footer {
             text-align: center; padding: 20px;
         }
@@ -57,11 +65,15 @@
     <div class="card">العمالة</div>
     <div class="card">أفراد الأسرة</div>
     
-    <div class="card journey-card" onclick="window.location.href='journeys.html'">
-        🧭 الرحلات الذكية
+    <div class="card journey-card" style="grid-column: span 2;" onclick="window.location.href='journeys.html'">
+        ✨ الرحلات الذكية
     </div>
     
-    <div class="card">مواعيد</div>
+    <div class="card verify-card" onclick="window.location.href='external.html'">
+         فنادق
+    </div>
+    
+    <div class="card">المواعيد</div>
 </div>
 
 <div class="footer">
